@@ -1,0 +1,221 @@
+// VARIABLES
+$light: #fff; //background
+$light2: #f8f9fa; //butons
+$light3: #f2f2f2; //footer background
+$dark: #202124; //hovered text
+$dark2: #3c4043; //normal text
+$dark3: #6f6f6f; //footer text
+$blue: #1a0dab; //text link
+
+// MIXINS
+@mixin flex($direction, $align, $justify) {
+  display: flex;
+  flex-direction: $direction;
+  align-items: $align;
+  justify-content: $justify;
+}
+
+@mixin font($family, $size, $lineheight) {
+  font-family: $family;
+  font-size: $size;
+  line-height: $lineheight;
+}
+
+//MAIN
+*,
+body {
+  margin: 0px;
+  padding: 0px;
+}
+
+.line {
+  cursor: pointer;
+  padding: 0px 0px 2px;
+  &:hover {
+    border-bottom: 1px solid #333;
+  }
+}
+//CONTAINER
+#container {
+  overflow: hidden;
+
+  box-sizing: border-box;
+  width: 100vw;
+  height: 100vh;
+
+  margin: 0px auto;
+
+  display: grid;
+
+  grid-template-rows: 50px auto 120px;
+  // NAV
+  #nav {
+    grid-row: 1/2;
+
+    @include flex(row, center, flex-end);
+
+    a,
+    img,
+    div {
+      margin: 0px 10px;
+    }
+
+    a {
+      @include font(arial, 13px, 24px);
+      @extend .line;
+
+      color: $dark2;
+      text-decoration: none;
+    }
+    .object {
+      height: 40px;
+      width: 40px;
+      border-radius: 20px;
+
+      display: grid;
+      place-items: center;
+
+      transition: background ease 0.25s;
+
+      &:hover {
+        background: #ddd;
+        img {
+          background: $light;
+        }
+      }
+
+      img {
+        height: 20px;
+        width: 20px;
+      }
+    }
+    #avatar {
+      height: 32px;
+      width: 32px;
+      border-radius: 20px;
+      background: url(./images/avatar.jpg);
+      background-size: cover;
+    }
+  }
+  // MAIN
+  #main {
+    display: grid;
+    grid-template-rows: 1fr 0.5fr 1fr;
+    place-items: center;
+
+    img {
+      width: 384px;
+    }
+
+    form {
+      display: grid;
+      .search {
+        width: 581px;
+        height: 45px;
+        border: 1px solid #6f6f6f4b;
+        border-radius: 20px;
+
+        @include flex(row, center, start);
+        gap: 20px;
+
+        box-sizing: border-box;
+        padding: 0px 20px;
+
+        &:hover {
+          box-shadow: 0px 1px 2px 1px #6f6f6f4b;
+        }
+
+        img {
+          width: 15px;
+          height: 15px;
+        }
+        .text {
+          width: 500px;
+          height: 20px;
+
+          border: none;
+          outline: none;
+        }
+      }
+      .buttons {
+        justify-self: center;
+
+        input {
+          margin: 20px 5px;
+          @include font(arial, 14px, 27px);
+          width: 125px;
+          height: 36px;
+
+          border: none;
+          outline: none;
+          color: $dark2;
+
+          &:hover {
+            @extend .search:hover;
+            color: $dark;
+          }
+        }
+      }
+    }
+    p {
+      align-self: start;
+      @include font(arial, 13px, 28px);
+    }
+  }
+  //FOOTER
+  footer {
+    background: $light3;
+    box-sizing: border-box;
+    padding: 0px 20px;
+
+    color: $dark3;
+
+    .one {
+      @include flex(row, center, start);
+      border-bottom: 1px solid #6f6f6f4b;
+
+      height: 50%;
+
+      p {
+        @include font(arial, 15px, 10px);
+      }
+    }
+
+    .map {
+      display: grid;
+      grid-template-columns: repeat(3 1fr);
+      grid-template-areas: "gen p other";
+      height: 50%;
+
+      align-items: center;
+
+      .gen {
+        grid-area: gen;
+      }
+      .other {
+        grid-area: other;
+        justify-self: end;
+      }
+
+      ul {
+        list-style-type: none;
+        display: flex;
+        gap: 20px;
+
+        li {
+          @include font(arial, 14px, 1px);
+          @extend .line;
+        }
+      }
+      p {
+        grid-area: p;
+        @include font(arial, 14px, 1px);
+        display: flex;
+        align-items: center;
+        img {
+          width: 30px;
+        }
+      }
+    }
+  }
+}
